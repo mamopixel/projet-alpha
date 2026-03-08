@@ -1,6 +1,5 @@
 import { useState } from 'react'
 import { Rocket, Utensils, Calendar, MapPin, Users, Clock, Sparkles } from "lucide-react"
-import { ThemeProvider } from "next-themes"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
@@ -10,36 +9,36 @@ import { Separator } from "@/components/ui/separator"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { DottedSurface } from "@/components/ui/dotted-surface"
 
-function AppContent() {
+const attendees = [
+  { 
+    name: "Alex Chen", 
+    role: "Frontend Dev", 
+    initial: "AC",
+    image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&h=100&fit=crop" 
+  },
+  { 
+    name: "Sarah Miller", 
+    role: "UX Designer", 
+    initial: "SM",
+    image: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=100&h=100&fit=crop" 
+  },
+  { 
+    name: "Jordan Lee", 
+    role: "DevOps", 
+    initial: "JL",
+    image: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=100&h=100&fit=crop" 
+  },
+  { 
+    name: "Taylor Swift", 
+    role: "Music Tech", 
+    initial: "TS",
+    image: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100&h=100&fit=crop" 
+  },
+]
+
+function App() {
   const [name, setName] = useState("")
   const [isRsvp, setIsRsvp] = useState(false)
-
-  const attendees = [
-    { 
-      name: "Alex Chen", 
-      role: "Frontend Dev", 
-      initial: "AC",
-      image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&h=100&fit=crop" 
-    },
-    { 
-      name: "Sarah Miller", 
-      role: "UX Designer", 
-      initial: "SM",
-      image: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=100&h=100&fit=crop" 
-    },
-    { 
-      name: "Jordan Lee", 
-      role: "DevOps", 
-      initial: "JL",
-      image: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=100&h=100&fit=crop" 
-    },
-    { 
-      name: "Taylor Swift", 
-      role: "Music Tech", 
-      initial: "TS",
-      image: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100&h=100&fit=crop" 
-    },
-  ]
 
   return (
     <div className="relative min-h-screen selection:bg-primary/10 bg-slate-50/50">
@@ -203,14 +202,6 @@ function AppContent() {
         </footer>
       </div>
     </div>
-  )
-}
-
-function App() {
-  return (
-    <ThemeProvider attribute="class" defaultTheme="light">
-      <AppContent />
-    </ThemeProvider>
   )
 }
 
