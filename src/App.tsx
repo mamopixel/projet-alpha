@@ -1,206 +1,256 @@
 import { useState } from 'react'
-import { Rocket, Utensils, Calendar, MapPin, Users, Clock, Sparkles } from "lucide-react"
+import { 
+  Smartphone, 
+  ShieldCheck, 
+  Truck, 
+  FileText, 
+  Users, 
+  TrendingUp, 
+  Check, 
+  Mail, 
+  Linkedin,
+  ArrowRight,
+  ChevronRight
+} from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Badge } from "@/components/ui/badge"
 import { Separator } from "@/components/ui/separator"
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { DottedSurface } from "@/components/ui/dotted-surface"
 
-const attendees = [
-  { 
-    name: "Alex Chen", 
-    role: "Frontend Dev", 
-    initial: "AC",
-    image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&h=100&fit=crop" 
-  },
-  { 
-    name: "Sarah Miller", 
-    role: "UX Designer", 
-    initial: "SM",
-    image: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=100&h=100&fit=crop" 
-  },
-  { 
-    name: "Jordan Lee", 
-    role: "DevOps", 
-    initial: "JL",
-    image: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=100&h=100&fit=crop" 
-  },
-  { 
-    name: "Taylor Swift", 
-    role: "Music Tech", 
-    initial: "TS",
-    image: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100&h=100&fit=crop" 
-  },
-]
-
 function App() {
-  const [name, setName] = useState("")
-  const [isRsvp, setIsRsvp] = useState(false)
+  const [isSent, setIsSent] = useState(false)
+
+  const services = [
+    { icon: <ShieldCheck className="size-6" />, title: "Gestion MDM", desc: "Configuration, sécurisation et administration à distance de votre parc mobile." },
+    { icon: <Smartphone className="size-6" />, title: "Ressources", desc: "Inventaire précis et optimisation de l'allocation des terminaux." },
+    { icon: <Truck className="size-6" />, title: "Supply Chain", desc: "Gestion complète du cycle de vie : approvisionnement, déploiement et SAV." },
+    { icon: <FileText className="size-6" />, title: "Contrats", desc: "Optimisation des coûts télécoms et gestion rigoureuse des engagements." },
+    { icon: <Users className="size-6" />, title: "Relation Client", desc: "Support expert et interface dédiée pour vos utilisateurs et partenaires." },
+    { icon: <TrendingUp className="size-6" />, title: "Business Dev", desc: "Développement d'offres stratégiques pour maximiser votre CA." },
+  ]
+
+  const pricing = [
+    { name: "Audit & Conseil", price: "À partir de 1 500€", features: ["Analyse de l'existant", "Optimisation des coûts", "Rapport de sécurité MDM"], accent: false },
+    { name: "Gestion Flotte", price: "Sur Devis", features: ["Management MDM complet", "Support utilisateur", "Logistique Supply Chain", "Reporting mensuel"], accent: true },
+    { name: "Stratégie & Offres", price: "Tarification TJM", features: ["Développement de catalogue", "Négociation contrats", "Accompagnement Business"], accent: false },
+  ]
 
   return (
-    <div className="relative min-h-screen selection:bg-primary/10 bg-slate-50/50">
-      {/* Background Effect */}
-      <DottedSurface className="fixed inset-0" />
+    <div className="relative min-h-screen selection:bg-primary/20 text-foreground">
+      {/* Background Effects */}
+      <DottedSurface className="fixed inset-0 opacity-40" />
 
-      {/* Main Content */}
-      <div className="relative z-10 font-sans text-slate-900">
-        <header className="bg-white/70 backdrop-blur-md border-b sticky top-0 z-20">
-          <div className="max-w-5xl mx-auto px-4 h-16 flex items-center justify-between">
-            <div className="flex items-center gap-2">
-              <div className="bg-primary rounded-lg p-1.5 shadow-sm">
-                <Rocket className="size-5 text-primary-foreground" />
-              </div>
-              <span className="font-bold text-xl tracking-tight">TechLunch<span className="text-primary">.io</span></span>
+      {/* Navigation */}
+      <header className="fixed top-0 w-full z-50 bg-background/80 backdrop-blur-xl border-b border-border">
+        <div className="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+          <div className="flex items-center gap-2">
+            <div className="bg-primary rounded-lg p-2 shadow-lg shadow-primary/20">
+              <Smartphone className="size-6 text-primary-foreground" />
             </div>
-            <nav className="hidden md:flex items-center gap-6 text-sm font-medium text-slate-600">
-              <a href="#" className="hover:text-primary transition-colors">Upcoming</a>
-              <a href="#" className="hover:text-primary transition-colors">Speakers</a>
-              <a href="#" className="hover:text-primary transition-colors">Archive</a>
-            </nav>
-            <Button variant="outline" size="sm">Sign In</Button>
+            <span className="font-sans font-bold text-xl tracking-tight">Mobile<span className="text-primary">Ops</span></span>
           </div>
-        </header>
+          <nav className="hidden md:flex items-center gap-8 text-sm font-medium">
+            <a href="#hero" className="hover:text-primary transition-colors">Accueil</a>
+            <a href="#about" className="hover:text-primary transition-colors">Expertise</a>
+            <a href="#pricing" className="hover:text-primary transition-colors">Tarifs</a>
+            <a href="#contact" className="bg-primary text-primary-foreground px-5 py-2.5 rounded-full hover:opacity-90 transition-opacity">Contact</a>
+          </nav>
+        </div>
+      </header>
 
-        <main className="max-w-5xl mx-auto px-4 py-8 md:py-12 grid grid-cols-1 lg:grid-cols-3 gap-8">
-          <div className="lg:col-span-2 space-y-8">
-            <section className="space-y-4">
-              <div className="flex items-center gap-2">
-                <Badge variant="secondary" className="px-2.5 py-0.5 rounded-full font-semibold">Next Event</Badge>
-                <span className="text-sm text-slate-500 flex items-center gap-1">
-                  <Sparkles className="size-3 text-amber-500 fill-amber-500" />
-                  Featured Topic
-                </span>
-              </div>
-              <h1 className="text-4xl md:text-5xl font-extrabold tracking-tight text-slate-900 leading-tight">
-                Scaling React Apps with <span className="text-primary italic">Modern Infrastructure</span>
-              </h1>
-              <p className="text-lg text-slate-600 leading-relaxed max-w-2xl">
-                Join us for our monthly deep dive into engineering excellence. This month, we're discussing micro-frontends and edge computing.
-              </p>
-            </section>
-
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              <Card className="bg-white/60 backdrop-blur-sm border-slate-200/50">
-                <CardContent className="pt-6 flex items-start gap-4">
-                  <div className="bg-blue-50 p-2 rounded-lg text-blue-600">
-                    <Calendar className="size-5" />
-                  </div>
-                  <div>
-                    <h3 className="font-semibold">Friday, March 20</h3>
-                    <p className="text-sm text-slate-500">12:30 PM — 2:00 PM</p>
-                  </div>
-                </CardContent>
-              </Card>
-              <Card className="bg-white/60 backdrop-blur-sm border-slate-200/50">
-                <CardContent className="pt-6 flex items-start gap-4">
-                  <div className="bg-emerald-50 p-2 rounded-lg text-emerald-600">
-                    <MapPin className="size-5" />
-                  </div>
-                  <div>
-                    <h3 className="font-semibold">The Atrium, Level 4</h3>
-                    <p className="text-sm text-slate-500">Innovation Hub, SF</p>
-                  </div>
-                </CardContent>
-              </Card>
+      <main>
+        {/* HERO SECTION */}
+        <section id="hero" className="pt-40 pb-20 px-6">
+          <div className="max-w-5xl mx-auto text-center space-y-8">
+            <Badge variant="secondary" className="px-4 py-1.5 text-sm rounded-full bg-primary/10 text-primary border-primary/20">
+              Freelance Expert Flotte Mobile
+            </Badge>
+            <h1 className="text-5xl md:text-7xl font-extrabold tracking-tighter leading-tight font-sans">
+              Externalisez la gestion de votre <br />
+              <span className="text-primary italic">parc mobile</span> de bout en bout.
+            </h1>
+            <p className="text-xl text-muted-foreground max-w-2xl mx-auto leading-relaxed font-serif">
+              Optimisez vos coûts, sécurisez vos terminaux avec le MDM et déléguez la logistique complète à un expert dédié.
+            </p>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center pt-4">
+              <Button size="lg" className="h-14 px-8 text-lg font-bold rounded-full group">
+                Discuter de mon projet <ArrowRight className="ml-2 size-5 group-hover:translate-x-1 transition-transform" />
+              </Button>
+              <Button size="lg" variant="outline" className="h-14 px-8 text-lg font-bold rounded-full border-2">
+                Voir mes services
+              </Button>
             </div>
-
-            <section className="space-y-4 bg-white/60 backdrop-blur-sm p-6 rounded-xl border border-slate-200/50 shadow-sm">
-              <h2 className="text-xl font-bold flex items-center gap-2">
-                <Utensils className="size-5 text-primary" />
-                On the Menu
-              </h2>
-              <Separator className="bg-slate-200/50" />
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div className="space-y-1">
-                  <h4 className="font-semibold">Main Course</h4>
-                  <p className="text-sm text-slate-600">Artisan Sandwich Platter & Harvest Salad</p>
-                </div>
-                <div className="space-y-1">
-                  <h4 className="font-semibold">Beverages</h4>
-                  <p className="text-sm text-slate-600">Cold Brew Coffee & Kombucha on tap</p>
-                </div>
-              </div>
-            </section>
           </div>
+        </section>
 
-          <aside className="space-y-6">
-            <Card className="shadow-xl border-primary/10 bg-white/70 backdrop-blur-md sticky top-24">
-              <CardHeader>
-                <CardTitle className="text-xl">Reserve your spot</CardTitle>
-                <CardDescription>Limited to 50 seats per session.</CardDescription>
-              </CardHeader>
-              <CardContent>
-                {!isRsvp ? (
-                  <form className="space-y-4" onSubmit={(e) => { e.preventDefault(); setIsRsvp(true); }}>
-                    <div className="space-y-2">
-                      <Label htmlFor="rsvp-name">Full Name</Label>
-                      <Input 
-                        id="rsvp-name" 
-                        placeholder="Jane Doe" 
-                        value={name} 
-                        onChange={(e) => setName(e.target.value)}
-                        required
-                        className="bg-white/50 border-slate-200"
-                      />
-                    </div>
-                    <div className="space-y-2">
-                      <Label htmlFor="rsvp-email">Work Email</Label>
-                      <Input id="rsvp-email" type="email" placeholder="jane@company.com" required className="bg-white/50 border-slate-200" />
-                    </div>
-                    <Button type="submit" className="w-full font-semibold shadow-lg shadow-primary/20">RSVP Now</Button>
-                  </form>
-                ) : (
-                  <div className="text-center py-4 space-y-3 animate-in fade-in zoom-in duration-300">
-                    <div className="bg-emerald-100 text-emerald-700 p-3 rounded-full w-12 h-12 mx-auto flex items-center justify-center">
-                      <Sparkles className="size-6" />
-                    </div>
-                    <div className="space-y-1">
-                      <p className="font-bold text-lg">You're on the list!</p>
-                      <p className="text-sm text-slate-500">See you there, {name.split(' ')[0]}.</p>
-                    </div>
-                    <Button variant="outline" className="w-full mt-4" onClick={() => setIsRsvp(false)}>Change RSVP</Button>
-                  </div>
-                )}
-              </CardContent>
-              <CardFooter className="bg-slate-50/30 rounded-b-xl py-3 border-t border-slate-100">
-                <p className="text-xs text-slate-500 text-center w-full flex items-center justify-center gap-1">
-                  <Clock className="size-3" /> Ends in 3 days
+        {/* ABOUT / SERVICES SECTION */}
+        <section id="about" className="py-24 bg-accent/50 backdrop-blur-sm border-y border-border">
+          <div className="max-w-7xl mx-auto px-6">
+            <div className="grid lg:grid-cols-2 gap-16 items-center">
+              <div className="space-y-6">
+                <h2 className="text-4xl font-extrabold tracking-tight font-sans">
+                  Une expertise complète pour <br />votre transformation mobile.
+                </h2>
+                <p className="text-lg text-muted-foreground leading-relaxed">
+                  En tant que freelance, je propose une approche agile et personnalisée pour gérer chaque aspect de votre flotte, du déploiement initial à l'optimisation financière.
                 </p>
-              </CardFooter>
-            </Card>
-
-            <div className="space-y-4 px-1">
-              <h3 className="text-sm font-bold text-slate-400 uppercase tracking-widest flex items-center gap-2">
-                <Users className="size-4" />
-                Already Attending
-              </h3>
-              <div className="space-y-3">
-                {attendees.map((person, i) => (
-                  <div key={i} className="flex items-center gap-3 group cursor-default">
-                    <Avatar className="size-9 border-2 border-white shadow-sm transition-transform group-hover:scale-110">
-                      <AvatarImage src={person.image} alt={person.name} />
-                      <AvatarFallback className="text-[10px] bg-slate-100">{person.initial}</AvatarFallback>
-                    </Avatar>
-                    <div className="flex flex-col">
-                      <span className="text-sm font-semibold text-slate-700 leading-none">{person.name}</span>
-                      <span className="text-[10px] text-slate-400 uppercase tracking-tighter mt-1">{person.role}</span>
-                    </div>
+                <div className="space-y-4 pt-4">
+                  <div className="flex items-center gap-3">
+                    <div className="bg-primary/20 p-1 rounded-full"><Check className="size-4 text-primary" /></div>
+                    <span className="font-medium">Réduction des coûts télécoms (ROI)</span>
                   </div>
+                  <div className="flex items-center gap-3">
+                    <div className="bg-primary/20 p-1 rounded-full"><Check className="size-4 text-primary" /></div>
+                    <span className="font-medium">Conformité RGPD & Sécurité via MDM</span>
+                  </div>
+                  <div className="flex items-center gap-3">
+                    <div className="bg-primary/20 p-1 rounded-full"><Check className="size-4 text-primary" /></div>
+                    <span className="font-medium">Externalisation complète de la supply chain</span>
+                  </div>
+                </div>
+              </div>
+              <div className="grid sm:grid-cols-2 gap-4">
+                {services.map((s, i) => (
+                  <Card key={i} className="bg-background/60 border-border/50 hover:border-primary/50 transition-colors shadow-sm">
+                    <CardHeader className="p-6">
+                      <div className="text-primary mb-2">{s.icon}</div>
+                      <CardTitle className="text-lg font-bold font-sans">{s.title}</CardTitle>
+                      <CardDescription className="text-sm leading-relaxed">{s.desc}</CardDescription>
+                    </CardHeader>
+                  </Card>
                 ))}
               </div>
             </div>
-          </aside>
-        </main>
-
-        <footer className="bg-white/40 backdrop-blur-sm border-t border-slate-200/50 mt-12 py-8">
-          <div className="max-w-5xl mx-auto px-4 text-center">
-            <p className="text-sm text-slate-400 font-medium tracking-tight">© 2026 TechLunch Hub. Built with excellence.</p>
           </div>
-        </footer>
-      </div>
+        </section>
+
+        {/* PRICING SECTION */}
+        <section id="pricing" className="py-24 px-6">
+          <div className="max-w-5xl mx-auto text-center mb-16 space-y-4">
+            <h2 className="text-4xl font-extrabold tracking-tight font-sans">Des offres adaptées à votre taille.</h2>
+            <p className="text-muted-foreground text-lg">Choisissez le niveau d'accompagnement dont vous avez besoin.</p>
+          </div>
+          <div className="max-w-6xl mx-auto grid md:grid-cols-3 gap-8">
+            {pricing.map((p, i) => (
+              <Card key={i} className={`relative flex flex-col p-2 bg-background/80 ${p.accent ? 'border-2 border-primary shadow-2xl scale-105 z-10' : 'border-border shadow-md'}`}>
+                {p.accent && (
+                  <Badge className="absolute -top-3 left-1/2 -translate-x-1/2 px-4 py-1 bg-primary text-primary-foreground font-bold">
+                    Plus Populaire
+                  </Badge>
+                )}
+                <CardHeader className="text-center pt-8">
+                  <CardTitle className="text-2xl font-bold font-sans">{p.name}</CardTitle>
+                  <div className="mt-4 text-3xl font-black text-primary font-mono">{p.price}</div>
+                </CardHeader>
+                <CardContent className="flex-grow space-y-4 px-8">
+                  <Separator />
+                  {p.features.map((f, j) => (
+                    <div key={j} className="flex items-center gap-3 text-sm">
+                      <ChevronRight className="size-4 text-primary" />
+                      <span>{f}</span>
+                    </div>
+                  ))}
+                </CardContent>
+                <CardFooter className="pb-8 px-8">
+                  <Button className={`w-full h-12 rounded-full font-bold ${p.accent ? 'bg-primary' : 'bg-secondary text-secondary-foreground hover:bg-secondary/80'}`}>
+                    Demander un devis
+                  </Button>
+                </CardFooter>
+              </Card>
+            ))}
+          </div>
+        </section>
+
+        {/* CONTACT SECTION */}
+        <section id="contact" className="py-24 px-6 bg-primary text-primary-foreground">
+          <div className="max-w-5xl mx-auto grid lg:grid-cols-2 gap-16">
+            <div className="space-y-8">
+              <h2 className="text-4xl md:text-5xl font-extrabold tracking-tight font-sans">Prêt à optimiser votre flotte ?</h2>
+              <p className="text-xl opacity-90 font-serif">
+                Analysons ensemble vos besoins MDM et supply chain pour construire une offre sur-mesure.
+              </p>
+              <div className="space-y-6 pt-4">
+                <div className="flex items-center gap-4">
+                  <div className="bg-white/10 p-3 rounded-full"><Mail className="size-6" /></div>
+                  <div>
+                    <div className="text-sm opacity-70">Email</div>
+                    <div className="font-bold">contact@mobileops.fr</div>
+                  </div>
+                </div>
+                <div className="flex items-center gap-4">
+                  <div className="bg-white/10 p-3 rounded-full"><Linkedin className="size-6" /></div>
+                  <div>
+                    <div className="text-sm opacity-70">LinkedIn</div>
+                    <div className="font-bold">linkedin.com/in/expert-mobile</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            <Card className="bg-white text-slate-900 border-none shadow-2xl p-2">
+              <CardContent className="p-8">
+                {!isSent ? (
+                  <form className="space-y-6" onSubmit={(e) => { e.preventDefault(); setIsSent(true); }}>
+                    <div className="grid sm:grid-cols-2 gap-4">
+                      <div className="space-y-2">
+                        <Label htmlFor="name">Nom</Label>
+                        <Input id="name" placeholder="Votre nom" required />
+                      </div>
+                      <div className="space-y-2">
+                        <Label htmlFor="company">Entreprise</Label>
+                        <Input id="company" placeholder="Nom de société" required />
+                      </div>
+                    </div>
+                    <div className="space-y-2">
+                      <Label htmlFor="email">Email professionnel</Label>
+                      <Input id="email" type="email" placeholder="nom@entreprise.fr" required />
+                    </div>
+                    <div className="space-y-2">
+                      <Label htmlFor="message">Votre projet (nombre de lignes, enjeux...)</Label>
+                      <textarea 
+                        id="message" 
+                        className="w-full min-h-[120px] rounded-md border border-input bg-background px-3 py-2 text-sm shadow-sm transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring"
+                        placeholder="Ex: Migration 200 lignes vers Intune..."
+                      />
+                    </div>
+                    <Button type="submit" className="w-full h-12 text-lg font-bold shadow-xl shadow-primary/20">
+                      Envoyer ma demande
+                    </Button>
+                  </form>
+                ) : (
+                  <div className="text-center py-12 space-y-4">
+                    <div className="bg-emerald-100 text-emerald-600 p-4 rounded-full w-16 h-16 mx-auto flex items-center justify-center">
+                      <Check className="size-8" />
+                    </div>
+                    <h3 className="text-2xl font-bold">Message envoyé !</h3>
+                    <p className="text-slate-500">Je reviens vers vous sous 24h ouvrées.</p>
+                    <Button variant="outline" className="mt-4" onClick={() => setIsSent(false)}>Nouveau message</Button>
+                  </div>
+                )}
+              </CardContent>
+            </Card>
+          </div>
+        </section>
+      </main>
+
+      <footer className="py-12 px-6 border-t border-border">
+        <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6">
+          <div className="flex items-center gap-2 grayscale opacity-50">
+            <Smartphone className="size-5" />
+            <span className="font-bold tracking-tight">MobileOps</span>
+          </div>
+          <p className="text-sm text-muted-foreground font-mono">
+            © 2026 MobileOps Freelance. Expert Flotte Mobile & MDM.
+          </p>
+          <div className="flex gap-6 text-sm text-muted-foreground">
+            <a href="#" className="hover:text-primary">Mentions Légales</a>
+            <a href="#" className="hover:text-primary">RGPD</a>
+          </div>
+        </div>
+      </footer>
     </div>
   )
 }
