@@ -28,6 +28,7 @@ import { Separator } from "@/components/ui/separator"
 import { DottedSurface } from "@/components/ui/dotted-surface"
 import { Logo } from "@/components/ui/logo"
 import MDMPage from "./pages/MDMPage"
+import QuotePage from "./pages/QuotePage"
 
 // Helper component to handle anchor links across pages
 function ScrollToTop() {
@@ -61,9 +62,41 @@ function Home() {
   ]
 
   const pricing = [
-    { name: "Audit & Conseil", price: "À partir de 1 500€", features: ["Analyse de l'existant", "Optimisation des coûts", "Rapport de sécurité MDM"], accent: false },
-    { name: "Gestion Flotte", price: "Sur Devis", features: ["Management MDM complet", "Support utilisateur", "Logistique Supply Chain", "Reporting mensuel"], accent: true },
-    { name: "Stratégie & Offres", price: "Tarification TJM", features: ["Développement de catalogue", "Négociation contrats", "Accompagnement Business"], accent: false },
+    { 
+      name: "Audit & Conseil", 
+      price: "1 500€", 
+      features: [
+        "Audit complet du parc & sécurité", 
+        "Optimisation financière (ROI immédiat)", 
+        "Schéma directeur MDM & Supply Chain"
+      ], 
+      accent: false 
+    },
+    { 
+      name: "Gestion Flotte", 
+      price: "5€", 
+      subPrice: "/ mobile / mois",
+      features: [
+        "Administration MDM (Intune, Jamf...)", 
+        "Support utilisateur N1 & N2 dédié", 
+        "Logistique Supply Chain & SAV", 
+        "Pilotage facturation & contrats",
+        "Frais de setup : 490€ (One-shot)"
+      ], 
+      accent: true 
+    },
+    { 
+      name: "Stratégie & Offres", 
+      price: "650€", 
+      subPrice: "/ jour (TJM)",
+      features: [
+        "Développement de catalogue offres", 
+        "Négociation accords opérateurs", 
+        "Accompagnement Business & CA",
+        "Expertise Grands Comptes"
+      ], 
+      accent: false 
+    },
   ]
 
   return (
@@ -188,7 +221,10 @@ function Home() {
                 )}
                 <CardHeader className="text-center pt-8">
                   <CardTitle className="text-2xl font-bold font-sans">{p.name}</CardTitle>
-                  <div className="mt-4 text-3xl font-black text-primary font-mono">{p.price}</div>
+                  <div className="mt-4 flex flex-col items-center">
+                    <span className="text-4xl font-black text-primary font-mono">{p.price}</span>
+                    {p.subPrice && <span className="text-sm text-muted-foreground font-medium mt-1">{p.subPrice}</span>}
+                  </div>
                 </CardHeader>
                 <CardContent className="flex-grow space-y-4 px-8">
                   <Separator />
@@ -200,9 +236,11 @@ function Home() {
                   ))}
                 </CardContent>
                 <CardFooter className="pb-8 px-8">
-                  <Button className={`w-full h-12 rounded-full font-bold ${p.accent ? 'bg-primary' : 'bg-secondary text-secondary-foreground hover:bg-secondary/80'}`}>
-                    Demander un devis
-                  </Button>
+                  <Link to="/quote" className="w-full">
+                    <Button className={`w-full h-12 rounded-full font-bold ${p.accent ? 'bg-primary' : 'bg-secondary text-secondary-foreground hover:bg-secondary/80'}`}>
+                      Demander un devis
+                    </Button>
+                  </Link>
                 </CardFooter>
               </Card>
             ))}
@@ -306,6 +344,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/mdm-innovation" element={<MDMPage />} />
+        <Route path="/quote" element={<QuotePage />} />
       </Routes>
     </Router>
   )
