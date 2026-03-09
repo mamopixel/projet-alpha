@@ -89,35 +89,50 @@ function Home() {
 
       <main>
         {/* HERO SECTION */}
-        <section id="hero" className="pt-40 pb-20 px-6">
-          <div className="max-w-5xl mx-auto text-center space-y-8">
-            <Badge variant="secondary" className="px-4 py-1.5 text-sm rounded-full bg-primary/10 text-primary border-primary/20">
-              Freelance Expert Flotte Mobile
-            </Badge>
-            <h1 className="text-5xl md:text-7xl font-extrabold tracking-tighter leading-tight font-sans">
-              Externalisez la gestion de votre <br />
-              <span className="text-primary italic">parc mobile</span> de bout en bout.
-            </h1>
-            <p className="text-xl text-muted-foreground max-w-2xl mx-auto leading-relaxed font-serif">
-              Optimisez vos coûts, sécurisez vos terminaux avec le MDM et déléguez la logistique complète à un expert dédié.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center pt-4">
-              <Link to="/mdm-innovation">
-                <Button size="lg" className="h-14 px-8 text-lg font-bold rounded-full group w-full sm:w-auto">
-                  Discuter de mon projet <ArrowRight className="ml-2 size-5 group-hover:translate-x-1 transition-transform" />
-                </Button>
-              </Link>
-              <Link to="/#about">
-                <Button size="lg" variant="outline" className="h-14 px-8 text-lg font-bold rounded-full border-2 w-full sm:w-auto">
-                  Voir mes services
-                </Button>
-              </Link>
+        <section id="hero" className="relative pt-32 pb-20 px-6 min-h-[95vh] flex items-center overflow-hidden">
+          {/* Spline Viewer Container */}
+          <div className="absolute inset-0 z-0">
+             {/* @ts-ignore */}
+             <spline-viewer 
+                url="https://prod.spline.design/21-1JEbHP3t8sRjk/scene.splinecode"
+                style={{ width: '100%', height: '100%', display: 'block' }}
+             />
+          </div>
+
+          {/* Hero Content Overlay */}
+          <div className="max-w-5xl mx-auto text-center space-y-8 relative z-10 pointer-events-none">
+            <div className="pointer-events-auto space-y-8 py-10 px-4">
+              <Badge variant="secondary" className="px-4 py-1.5 text-sm rounded-full bg-primary/10 text-primary border-primary/20 backdrop-blur-md">
+                Freelance Expert Flotte Mobile
+              </Badge>
+              <h1 className="text-5xl md:text-8xl font-black tracking-tight leading-[0.9] font-sans text-slate-900">
+                Externalisez votre <br />
+                <span className="text-primary italic">parc mobile</span>.
+              </h1>
+              <p className="text-xl text-slate-700 max-w-2xl mx-auto leading-relaxed font-serif bg-white/40 backdrop-blur-xl rounded-[2rem] p-6 shadow-2xl shadow-primary/5 border border-white/40">
+                Optimisez vos coûts, sécurisez vos terminaux avec le MDM et déléguez la logistique complète à un expert dédié.
+              </p>
+              <div className="flex flex-col sm:flex-row gap-4 justify-center pt-4">
+                <Link to="/mdm-innovation">
+                  <Button size="lg" className="h-16 px-10 text-xl font-black rounded-full group w-full sm:w-auto shadow-2xl shadow-primary/30 transition-all hover:scale-105 active:scale-95">
+                    Discuter de mon projet <ArrowRight className="ml-2 size-6 group-hover:translate-x-1 transition-transform" />
+                  </Button>
+                </Link>
+                <Link to="/#about">
+                  <Button size="lg" variant="outline" className="h-16 px-10 text-xl font-black rounded-full border-2 w-full sm:w-auto bg-white/60 backdrop-blur-md hover:bg-white/90 transition-all hover:scale-105 active:scale-95">
+                    Voir mes services
+                  </Button>
+                </Link>
+              </div>
             </div>
           </div>
+          
+          {/* Bottom Gradient Fade */}
+          <div className="absolute bottom-0 left-0 w-full h-32 bg-gradient-to-t from-background to-transparent z-10" />
         </section>
 
         {/* ABOUT / SERVICES SECTION */}
-        <section id="about" className="py-24 bg-accent/50 backdrop-blur-sm border-y border-border">
+        <section id="about" className="py-24 bg-accent/50 backdrop-blur-sm border-y border-border relative z-20">
           <div className="max-w-7xl mx-auto px-6">
             <div className="grid lg:grid-cols-2 gap-16 items-center">
               <div className="space-y-6">
@@ -158,7 +173,7 @@ function Home() {
         </section>
 
         {/* PRICING SECTION */}
-        <section id="pricing" className="py-24 px-6">
+        <section id="pricing" className="py-24 px-6 relative z-20 bg-background">
           <div className="max-w-5xl mx-auto text-center mb-16 space-y-4">
             <h2 className="text-4xl font-extrabold tracking-tight font-sans">Des offres adaptées à votre taille.</h2>
             <p className="text-muted-foreground text-lg">Choisissez le niveau d'accompagnement dont vous avez besoin.</p>
@@ -195,7 +210,7 @@ function Home() {
         </section>
 
         {/* CONTACT SECTION */}
-        <section id="contact" className="py-24 px-6 bg-primary text-primary-foreground">
+        <section id="contact" className="py-24 px-6 bg-primary text-primary-foreground relative z-20">
           <div className="max-w-5xl mx-auto grid lg:grid-cols-2 gap-16">
             <div className="space-y-8">
               <h2 className="text-4xl md:text-5xl font-extrabold tracking-tight font-sans">Prêt à optimiser votre flotte ?</h2>
@@ -266,7 +281,7 @@ function Home() {
         </section>
       </main>
 
-      <footer className="py-12 px-6 border-t border-border">
+      <footer className="py-12 px-6 border-t border-border bg-background relative z-20">
         <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6">
           <Link to="/">
             <Logo iconOnly className="grayscale opacity-50" />

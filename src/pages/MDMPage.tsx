@@ -1,7 +1,6 @@
-import { TrendingUp, ShieldCheck, ArrowLeft, Smartphone, Check, SeparatorHorizontal } from "lucide-react"
+import { TrendingUp, ShieldCheck, ArrowLeft, Check } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
-import { Separator } from "@/components/ui/separator"
 import { DottedSurface } from "@/components/ui/dotted-surface"
 import { Logo } from "@/components/ui/logo"
 import { Link } from "react-router-dom"
