@@ -1,4 +1,11 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
+import { 
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  Link,
+  useLocation
+} from "react-router-dom"
 import { 
   Smartphone, 
   ShieldCheck, 
@@ -19,8 +26,29 @@ import { Label } from "@/components/ui/label"
 import { Badge } from "@/components/ui/badge"
 import { Separator } from "@/components/ui/separator"
 import { DottedSurface } from "@/components/ui/dotted-surface"
+import { Logo } from "@/components/ui/logo"
+import MDMPage from "./pages/MDMPage"
 
-function App() {
+// Helper component to handle anchor links across pages
+function ScrollToTop() {
+  const { pathname, hash } = useLocation();
+
+  useEffect(() => {
+    if (!hash) {
+      window.scrollTo(0, 0);
+    } else {
+      const id = hash.replace('#', '');
+      const element = document.getElementById(id);
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth' });
+      }
+    }
+  }, [pathname, hash]);
+
+  return null;
+}
+
+function Home() {
   const [isSent, setIsSent] = useState(false)
 
   const services = [
@@ -46,17 +74,15 @@ function App() {
       {/* Navigation */}
       <header className="fixed top-0 w-full z-50 bg-background/80 backdrop-blur-xl border-b border-border">
         <div className="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
-          <div className="flex items-center gap-2">
-            <div className="bg-primary rounded-lg p-2 shadow-lg shadow-primary/20">
-              <Smartphone className="size-6 text-primary-foreground" />
-            </div>
-            <span className="font-sans font-bold text-xl tracking-tight">Mobile<span className="text-primary">Ops</span></span>
-          </div>
+          <Link to="/">
+            <Logo />
+          </Link>
           <nav className="hidden md:flex items-center gap-8 text-sm font-medium">
-            <a href="#hero" className="hover:text-primary transition-colors">Accueil</a>
-            <a href="#about" className="hover:text-primary transition-colors">Expertise</a>
-            <a href="#pricing" className="hover:text-primary transition-colors">Tarifs</a>
-            <a href="#contact" className="bg-primary text-primary-foreground px-5 py-2.5 rounded-full hover:opacity-90 transition-opacity">Contact</a>
+            <Link to="/#hero" className="hover:text-primary transition-colors">Accueil</Link>
+            <Link to="/mdm-innovation" className="hover:text-primary transition-colors">Innovation MDM</Link>
+            <Link to="/#about" className="hover:text-primary transition-colors">Expertise</Link>
+            <Link to="/#pricing" className="hover:text-primary transition-colors">Tarifs</Link>
+            <Link to="/#contact" className="bg-primary text-primary-foreground px-5 py-2.5 rounded-full hover:opacity-90 transition-opacity">Contact</Link>
           </nav>
         </div>
       </header>
@@ -76,12 +102,16 @@ function App() {
               Optimisez vos coûts, sécurisez vos terminaux avec le MDM et déléguez la logistique complète à un expert dédié.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center pt-4">
-              <Button size="lg" className="h-14 px-8 text-lg font-bold rounded-full group">
-                Discuter de mon projet <ArrowRight className="ml-2 size-5 group-hover:translate-x-1 transition-transform" />
-              </Button>
-              <Button size="lg" variant="outline" className="h-14 px-8 text-lg font-bold rounded-full border-2">
-                Voir mes services
-              </Button>
+              <Link to="/mdm-innovation">
+                <Button size="lg" className="h-14 px-8 text-lg font-bold rounded-full group w-full sm:w-auto">
+                  Discuter de mon projet <ArrowRight className="ml-2 size-5 group-hover:translate-x-1 transition-transform" />
+                </Button>
+              </Link>
+              <Link to="/#about">
+                <Button size="lg" variant="outline" className="h-14 px-8 text-lg font-bold rounded-full border-2 w-full sm:w-auto">
+                  Voir mes services
+                </Button>
+              </Link>
             </div>
           </div>
         </section>
@@ -238,10 +268,9 @@ function App() {
 
       <footer className="py-12 px-6 border-t border-border">
         <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6">
-          <div className="flex items-center gap-2 grayscale opacity-50">
-            <Smartphone className="size-5" />
-            <span className="font-bold tracking-tight">MobileOps</span>
-          </div>
+          <Link to="/">
+            <Logo iconOnly className="grayscale opacity-50" />
+          </Link>
           <p className="text-sm text-muted-foreground font-mono">
             © 2026 MobileOps Freelance. Expert Flotte Mobile & MDM.
           </p>
@@ -252,6 +281,18 @@ function App() {
         </div>
       </footer>
     </div>
+  )
+}
+
+function App() {
+  return (
+    <Router>
+      <ScrollToTop />
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/mdm-innovation" element={<MDMPage />} />
+      </Routes>
+    </Router>
   )
 }
 
